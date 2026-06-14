@@ -49,7 +49,7 @@ npm run dev
 - Passo a passo
   - Faça push do repositório para GitHub
   - Na Vercel, clique em `Add New Project` e importe o repositório
-  - Mantenha as configurações padrão (a Vercel lerá `vercel.json`)
+  - Em `Root Directory`, escolha `frontend` (usa `frontend/vercel.json`)
   - Clique em `Deploy`
 
 - Após o deploy
