@@ -248,6 +248,10 @@ app.use((error, _req, res, _next) => {
   res.status(500).json({ error: message });
 });
 
-app.listen(port, () => {
-  console.log(`API ativa em http://localhost:${port}`);
-});
+if (require.main === module) {
+  app.listen(port, () => {
+    console.log(`API ativa em http://localhost:${port}`);
+  });
+}
+
+module.exports = app;

@@ -38,7 +38,61 @@ npm run dev
 ```
 
 - Configuração opcional
-  - Defina `VITE_API_URL` no frontend caso o backend rode em outra URL
+  - O frontend já usa `/api` por padrão
+  - Defina `VITE_API_URL` somente se quiser apontar para outra API
+
+## Deploy na Vercel
+
+- Este projeto está configurado para subir frontend e backend no mesmo domínio
+- Rotas da API ficam em `/api/*`
+
+- Passo a passo
+  - Faça push do repositório para GitHub
+  - Na Vercel, clique em `Add New Project` e importe o repositório
+  - Mantenha as configurações padrão (a Vercel lerá `vercel.json`)
+  - Clique em `Deploy`
+
+- Após o deploy
+  - Frontend: URL principal do projeto
+  - Healthcheck da API: `/api/health`
+
+- Observação importante
+  - Conversão de vídeos grandes pode exceder limites de tempo/memória de funções serverless
+
+## Deploy recomendado para vídeos grandes
+
+- Estratégia
+  - Frontend na Vercel
+  - Backend no Render ou Railway
+
+- 1) Subir backend no Render
+  - Faça push do repositório
+  - No Render, crie um novo `Web Service`
+  - O arquivo `render.yaml` já configura:
+    - `rootDir`: `backend`
+    - `buildCommand`: `npm install`
+    - `startCommand`: `npm start`
+    - healthcheck: `/api/health`
+  - Em variáveis de ambiente, defina:
+    - `CORS_ORIGIN=https://SEU-FRONTEND.vercel.app`
+
+- 2) Subir backend no Railway (alternativa)
+  - Crie um novo projeto com o mesmo repositório
+  - Configure:
+    - Root Directory: `backend`
+    - Start Command: `npm start`
+  - Em variáveis, defina:
+    - `CORS_ORIGIN=https://SEU-FRONTEND.vercel.app`
+
+- 3) Subir frontend na Vercel
+  - Importe o repositório na Vercel
+  - Em `Root Directory`, escolha `frontend`
+  - Em variáveis de ambiente, defina:
+    - `VITE_API_URL=https://SUA-API.onrender.com` (ou domínio Railway)
+
+- 4) Validar integração
+  - Abra o frontend e teste upload/conversão
+  - Teste healthcheck da API: `https://SUA-API.../api/health`
 
 ## API
 
