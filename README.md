@@ -43,8 +43,8 @@ npm run dev
 
 ## Deploy na Vercel
 
-- Este projeto está configurado para subir frontend e backend no mesmo domínio
-- Rotas da API ficam em `/api/*`
+- Este projeto está configurado para deploy do frontend na Vercel
+- O backend deve ficar no Render ou Railway (recomendado para vídeos maiores)
 
 - Passo a passo
   - Faça push do repositório para GitHub
@@ -54,7 +54,7 @@ npm run dev
 
 - Após o deploy
   - Frontend: URL principal do projeto
-  - Healthcheck da API: `/api/health`
+  - API usada pelo frontend: valor configurado em `VITE_API_URL`
 
 - Observação importante
   - Conversão de vídeos grandes pode exceder limites de tempo/memória de funções serverless
