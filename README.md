@@ -1,22 +1,27 @@
-# Converter Flow (React + Node)
+# Converter Flow
 
-Projeto fullstack para:
-- Converter imagem entre `png`, `jpeg/jpg`, `webp`, `ico`, `svg`
-- Redimensionar por largura/altura
-- Comprimir imagem por qualidade e alvo de tamanho (KB)
-- Converter vídeo para GIF com boa qualidade e tamanho reduzido
+Aplicação fullstack para processar mídia com foco em simplicidade e velocidade.
 
-## Estrutura
+## Resumo
 
-- `frontend`: React + Vite
-- `backend`: Node.js + Express + Sharp + FFmpeg
+- Converter imagens entre formatos: `png`, `jpeg/jpg`, `webp`, `ico`, `svg`
+- Redimensionar imagens por largura e altura
+- Comprimir imagens por qualidade e/ou tamanho alvo (`KB`)
+- Converter vídeos para GIF com ajuste de largura, altura e `FPS`
+
+## Tecnologias
+
+- Frontend: React + Vite
+- Backend: Node.js + Express + Sharp + FFmpeg (`ffmpeg-static`)
 
 ## Requisitos
 
 - Node.js 20+
 - npm 10+
 
-## Executar backend
+## Como executar
+
+- Backend (`http://localhost:3001`)
 
 ```bash
 cd backend
@@ -24,11 +29,7 @@ npm install
 npm run dev
 ```
 
-API padrão: `http://localhost:3001`
-
-Opcional: copie `backend/.env.example` para `backend/.env`.
-
-## Executar frontend
+- Frontend (`http://localhost:5173`)
 
 ```bash
 cd frontend
@@ -36,21 +37,21 @@ npm install
 npm run dev
 ```
 
-App padrão: `http://localhost:5173`
+- Configuração opcional
+  - Defina `VITE_API_URL` no frontend caso o backend rode em outra URL
 
-Se necessário, configure `VITE_API_URL` no frontend apontando para o backend.
-
-## Endpoints principais
+## API
 
 - `POST /api/image/process`
-  - `multipart/form-data`
-  - campos: `file`, `format`, `width`, `height`, `quality`, `targetSizeKB`
+  - Tipo: `multipart/form-data`
+  - Campos: `file`, `format`, `width`, `height`, `quality`, `targetSizeKB`
+
 - `POST /api/video/to-gif`
-  - `multipart/form-data`
-  - campos: `file`, `width`, `height`, `fps`
+  - Tipo: `multipart/form-data`
+  - Campos: `file`, `width`, `height`, `fps`
 
 ## Observações
 
-- O backend usa `ffmpeg-static`, então não precisa instalar FFmpeg manualmente.
-- Conversão para `svg` gera um SVG com imagem incorporada (base64) quando a origem é raster.
-- Para `ico`, a geração passa por PNG antes de criar o ícone final.
+- `ffmpeg-static` já inclui binário do FFmpeg (sem instalação manual)
+- Conversão para `svg` usa imagem incorporada em base64 quando a origem é raster
+- Conversão para `ico` passa por PNG antes de gerar o arquivo final
